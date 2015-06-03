@@ -42,9 +42,20 @@ sio.on('connection', function (socket) {
 
   socket.visibility = 'visible';
 
+  socket.authorName = 'anonimous';
+
   socket.on('user-visibility:changed', function (state) {
     socket.visibility = state;
     sio.emit('users:visibility-states', getVisibilityCounts());
+  });
+
+  socket.on('user-name:changed', function (newName) {
+    socket.authorName = newName;
+    sio.emit('users:nameChanged', socket.authorName);
+  });
+
+  socket.on('chat:messageSend', function (message) {
+    sio.emit('chat:messageReceived', socket.authorName, message);
   });
 });
 

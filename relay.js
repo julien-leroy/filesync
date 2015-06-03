@@ -62,6 +62,5 @@ gaze(directory + '/**/*.js', function (err, watcher) {
   // debug
   (function loop() {
     this.emit('changed', path.resolve(__dirname, 'public/app/app.js'));
-    setTimeout(loop.bind(this), 10000);
   }.bind(this))();
 });
